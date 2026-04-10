@@ -1,0 +1,51 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-04-10T08:42:42.103Z",
+  "phase": "01",
+  "phase_name": "upload-parse",
+  "phase_dir": ".planning/phases/01-upload-parse",
+  "plan": 5,
+  "task": 2,
+  "total_tasks": 2,
+  "status": "paused",
+  "completed_tasks": [
+    {"id": "01-01", "name": "Bootstrap full-stack scaffold", "status": "done", "commit": "7a3a83d"},
+    {"id": "01-02", "name": "Backend upload API + PDF/DOCX parsing", "status": "done", "commit": "3c39e51"},
+    {"id": "01-03", "name": "Claude AI parser", "status": "done", "commit": "ddf0e62"},
+    {"id": "01-04", "name": "Frontend upload view", "status": "done", "commit": "74fd1bf"},
+    {"id": "01-05-task1", "name": "ResumeForm section components", "status": "done", "commit": "2274424"}
+  ],
+  "remaining_tasks": [
+    {"id": "01-05-task2", "name": "E2E verification of full upload→review flow", "status": "in_progress", "notes": "Redirect bug fixed (v-if→v-show), needs user verification"}
+  ],
+  "blockers": [],
+  "human_actions_pending": [
+    {
+      "action": "Test upload→review full flow in browser after v-if→v-show fix",
+      "context": "User uploads 简历.pdf, should auto-redirect to /review/:id after parse completes",
+      "blocking": true
+    },
+    {
+      "action": "Complete Plan 01-05 verification (approved/issues)",
+      "context": "Plan 01-05 reached checkpoint after Task 1; Task 2 is E2E verification",
+      "blocking": false
+    }
+  ],
+  "decisions": [
+    {"decision": "Removed output_config from Claude API calls", "rationale": "Relay at code.ai.cs.ac.cn doesn't support this newer parameter; switched to system prompt JSON approach", "phase": "01"},
+    {"decision": "Used system prompt + code fence stripping for structured output", "rationale": "Most compatible approach with third-party API relays", "phase": "01"},
+    {"decision": "Removed SSE endpoint from frontend (api.ts)", "rationale": "/api/upload/stream doesn't exist; was causing ECONNRESET before fallback", "phase": "01"},
+    {"decision": "v-if→v-show for UploadZone", "rationale": "v-if unmounts component after first progress event, orphaning all subsequent emit() calls including complete", "phase": "01"},
+    {"decision": "Use window.location.href for redirect", "rationale": "router.push was not triggering; window.location.href is more reliable in this context", "phase": "01"},
+    {"decision": "python-dotenv added to main.py", "rationale": "Backend needs to load .env for ANTHROPIC_API_KEY and ANTHROPIC_BASE_URL", "phase": "01"},
+    {"decision": "ANTHROPIC_BASE_URL supported in claude_parser.py", "rationale": "User in China must use relay at https://code.ai.cs.ac.cn", "phase": "01"}
+  ],
+  "uncommitted_files": [
+    ".planning/REQUIREMENTS.md",
+    ".planning/config.json",
+    "scout-backend/debug_raw.txt",
+    "scout-backend/uv.lock"
+  ],
+  "next_action": "User verifies upload→redirect works in browser. If approved, complete Plan 01-05 SUMMARY and run phase verification. Then commit remaining files and push.",
+  "context_notes": "Phase 1 code is fully written (all 5 plans). The main remaining work is: (1) browser E2E verification of the redirect fix, (2) completing Plan 01-05 checkpoint response, (3) running /gsd-execute-phase to finalize phase verification. User also gave feedback that Scout must proactively ask follow-up questions about work experience (like Siemens projects that can't have GitHub links) — this should inform Phase 2/3 design."
+}

@@ -22,6 +22,14 @@
 - [ ] **SCRAPE-03**: 搜索前询问用户偏好（城市、岗位类型、行业），同时分析简历自动推断用户真实意向，两者结合制定搜索策略（不完全依赖用户填写）
 - [ ] **SCRAPE-04**: 爬取失败时自动降级：展示具体错误原因，保留手动粘贴 JD 作为 fallback
 
+### Deep Research (RESEARCH)
+
+- [ ] **RESEARCH-01**: 针对每个岗位，系统自动研究公司背景（融资、产品动态、技术博客、企业文化）
+- [ ] **RESEARCH-02**: 系统自动爬取牛客网该公司/岗位的真实面经（面试题、面试轮次、笔试情况）
+- [ ] **RESEARCH-03**: 系统自动搜索小红书该公司/岗位的真实面试经历帖子
+- [ ] **RESEARCH-04**: 系统聚合 10+ 个同类 JD 的关键词并展示出现频率（"React 出现在 90% 的同类 JD 中"）
+- [ ] **RESEARCH-05**: 系统基于真实面经 + 公司研究生成个性化面试演讲稿（自我介绍 + 常见问题回答框架）
+
 ### AI Generation (AI)
 
 - [ ] **AI-01**: 系统针对每个岗位生成定制简历，保留用户原有写作风格和句式
@@ -30,14 +38,6 @@
 - [ ] **AI-04**: 关键词密度控制在 70-80%（不堆砌），通过 ATS 语义匹配检测
 - [ ] **AI-05**: 当信息不足时，系统暂停并弹窗要求用户补充具体信息，补充后自动恢复
 - [ ] **AI-06**: 生成内容避免 AI 特征词汇（"pivotal"、"transformative"等），降低 HR 识别率
-
-### Deep Research (RESEARCH)
-
-- [ ] **RESEARCH-01**: 针对每个岗位，系统自动研究公司背景（融资、产品动态、技术博客、企业文化）
-- [ ] **RESEARCH-02**: 系统自动爬取牛客网该公司/岗位的真实面经（面试题、面试轮次、笔试情况）
-- [ ] **RESEARCH-03**: 系统自动搜索小红书该公司/岗位的真实面试经历帖子
-- [ ] **RESEARCH-04**: 系统聚合 10+ 个同类 JD 的关键词并展示出现频率（"React 出现在 90% 的同类 JD 中"）
-- [ ] **RESEARCH-05**: 系统基于真实面经 + 公司研究生成个性化面试演讲稿（自我介绍 + 常见问题回答框架）
 
 ### Job Management (JOBS)
 
@@ -93,7 +93,7 @@
 | RESUME-04 | Phase 1 | Pending |
 | RESUME-05 | Phase 1 | Pending |
 | RESUME-06 | Phase 3 | Pending |
-| RESUME-07 | Phase 1 | Pending |
+| RESUME-07 | Phase 3 | Pending |
 | SCRAPE-01 | Phase 2 | Pending |
 | SCRAPE-02 | Phase 2 | Pending |
 | SCRAPE-03 | Phase 2 | Pending |
