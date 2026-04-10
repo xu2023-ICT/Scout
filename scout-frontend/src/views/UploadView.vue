@@ -92,8 +92,7 @@ async function handleComplete(resumeId: number) {
   if (isDone.value) return  // prevent double-trigger
   isDone.value = true
   isParsing.value = false
-  await resumeStore.loadParsed(resumeId)
-  router.push(`/review/${resumeId}`)
+  window.location.href = `/review/${resumeId}`
 }
 
 function handleError(message: string) {
