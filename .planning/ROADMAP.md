@@ -8,7 +8,7 @@
 
 ## Phases
 
-- [ ] **Phase 1: Upload & Parse** - 上传简历+材料 → AI解析 → LapisCV格式渲染输出
+- [ ] **Phase 1: Upload & Parse** - 上传简历+材料 → AI解析结构化数据 → 表单确认
 - [ ] **Phase 2: Job Search** - 询问偏好+分析简历 → 并行搜索所有平台（Boss+实习僧+官网）→ 展示Dashboard
 - [ ] **Phase 3: Research → Generate** - 先研究（公司+牛客+小红书+跨JD） → 再生成定制简历+面试稿+质量控制
 - [ ] **Phase 4: Job Management** - 筛选、匹配分、看板、SSE实时进度
@@ -16,15 +16,21 @@
 ## Phase Details
 
 ### Phase 1: Upload & Parse
-**Goal**: 用户上传简历和所有补充材料，AI 解析结构并以 LapisCV 格式渲染展示，用户确认后系统准备就绪
+**Goal**: 用户上传简历和补充材料，AI 解析出结构化数据，用户在网页表单上确认/修正，系统存储数据准备就绪
 **Depends on**: Nothing (first phase)
-**Requirements**: RESUME-01, RESUME-02, RESUME-03, RESUME-04, RESUME-05, RESUME-07
+**Requirements**: RESUME-01, RESUME-02, RESUME-03, RESUME-04, RESUME-05
 **Success Criteria** (what must be TRUE):
   1. 用户上传 PDF/Word 简历，看到解析后的结构化内容（工作经历、技能、教育），可编辑修正
   2. 用户上传论文 PDF，系统自动提取关键贡献、发表期刊、元数据
-  3. 用户提交 GitHub 链接，系统记录待分析
-  4. 解析完成后，简历以 LapisCV 格式（Markdown+YAML）渲染展示，用户看到最终排版效果
-**Plans**: TBD
+  3. 用户提交 GitHub 链接，系统记录（不做分析）
+  4. 解析完成后展示结构化表单，用户确认内容正确后系统准备就绪
+**Plans:** 5 plans
+Plans:
+- [x] 01-01-PLAN.md — Project scaffold: FastAPI backend + SQLAlchemy models/schemas + Vue 3 frontend + test infrastructure
+- [ ] 01-02-PLAN.md — Backend: file upload endpoint + PDF/Word text extraction + integration tests
+- [ ] 01-03-PLAN.md — Backend: Claude Haiku 4.5 structured parsing (RESUME_SCHEMA + PAPER_SCHEMA) wired into pipeline
+- [ ] 01-04-PLAN.md — Frontend: upload page with drag-drop zone + SSE progress display + auto-redirect
+- [ ] 01-05-PLAN.md — Frontend: /review/{id} editable structured form (all sections) + save/confirm + human verify
 **UI hint**: yes
 
 ### Phase 2: Job Search
@@ -42,7 +48,7 @@
 ### Phase 3: Research → Generate
 **Goal**: 针对每个岗位，先完成公司研究+面经抓取+跨JD分析，再基于研究结果生成定制简历和面试演讲稿，含质量控制和导出
 **Depends on**: Phase 2
-**Requirements**: RESEARCH-01, RESEARCH-02, RESEARCH-03, RESEARCH-04, RESEARCH-05, AI-01, AI-02, AI-03, AI-04, AI-05, AI-06, RESUME-06
+**Requirements**: RESEARCH-01, RESEARCH-02, RESEARCH-03, RESEARCH-04, RESEARCH-05, AI-01, AI-02, AI-03, AI-04, AI-05, AI-06, RESUME-06, RESUME-07
 **Success Criteria** (what must be TRUE):
   1. 每个岗位有公司研究报告（融资、产品、技术博客、企业文化）
   2. 牛客网真实面经（面试题、轮次、笔试）和小红书面试经历帖子均可见
@@ -75,12 +81,13 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Pipeline | 0/? | Not started | - |
-| 2. Deep Research | 0/? | Not started | - |
-| 3. Generation Quality | 0/? | Not started | - |
+| 1. Upload & Parse | 1/5 | In Progress | - |
+| 2. Job Search | 0/? | Not started | - |
+| 3. Research → Generate | 0/? | Not started | - |
 | 4. Job Management | 0/? | Not started | - |
 | 5. Scale (if traction) | — | On hold | - |
 
 ---
 *Roadmap created: 2026-04-10*
 *Last updated: 2026-04-10 after requirement revisions (merged Phase 1+2, added LapisCV, moved materials to Phase 1)*
+*Phase 1 planned: 2026-04-10 — 5 plans in 4 waves*
