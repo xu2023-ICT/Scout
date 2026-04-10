@@ -25,7 +25,7 @@ Last updated: 2026-04-10
 See: .planning/PROJECT.md (updated 2026-04-10)
 
 **Core value:** 用户只需提供简历和搜索偏好，Scout Agent 自动搜索岗位、深度研究、生成定制简历和面试演讲稿
-**Current focus:** Phase 02 — Autonomous Job Search (Phase 01 fully verified and complete)
+**Current focus:** Phase 02 — Job Search (CONTEXT.md captured, ready to plan)
 
 ## Phase Progress
 
