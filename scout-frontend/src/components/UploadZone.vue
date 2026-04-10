@@ -46,11 +46,17 @@
         Academic Paper PDF <span class="text-muted-foreground font-normal">(optional)</span>
       </Label>
       <div
-        class="border border-dashed rounded-lg p-4 text-center cursor-pointer hover:border-primary/50 transition-colors"
+        class="border border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors"
+        :class="isPaperDragOver ? 'border-primary bg-primary/5' : 'border-muted-foreground/30 hover:border-primary/50'"
+        @dragover.prevent="isPaperDragOver = true"
+        @dragleave.prevent="isPaperDragOver = false"
+        @drop.prevent="handleDrop($event, 'paper')"
         @click="paperInput?.click()"
+        role="button"
+        aria-label="Upload paper PDF"
       >
         <p class="text-sm text-muted-foreground">
-          {{ paperFile ? paperFile.name : 'Click to upload paper PDF' }}
+          {{ paperFile ? paperFile.name : 'Drag & drop or click to upload paper PDF' }}
         </p>
       </div>
       <input
@@ -109,6 +115,7 @@ const resumeFile = ref<File | null>(null)
 const paperFile = ref<File | null>(null)
 const githubUrl = ref('')
 const isDragOver = ref(false)
+const isPaperDragOver = ref(false)
 const isUploading = ref(false)
 const resumeError = ref('')
 
@@ -133,6 +140,7 @@ function validateResumeFile(file: File): string {
 
 function handleDrop(event: DragEvent, target: 'resume' | 'paper') {
   isDragOver.value = false
+  isPaperDragOver.value = false
   const file = event.dataTransfer?.files[0]
   if (!file) return
   setFile(file, target)

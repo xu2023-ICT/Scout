@@ -32,7 +32,8 @@ def get_client() -> anthropic.Anthropic:
                 "ANTHROPIC_API_KEY environment variable is not set. "
                 "Set it in your .env file. See .env.example."
             )
-        _client = anthropic.Anthropic(api_key=api_key)
+        base_url = os.getenv("ANTHROPIC_BASE_URL") or None
+        _client = anthropic.Anthropic(api_key=api_key, base_url=base_url)
     return _client
 
 
@@ -172,27 +173,42 @@ async def parse_resume_with_claude(markdown_text: str) -> dict:
     client = get_client()
     response = client.messages.create(
         model="claude-haiku-4-5",
-        max_tokens=4096,  # Pitfall 4: set high to avoid truncation on long resumes
+        max_tokens=4096,
+        system=(
+            "You are a resume parser. Output ONLY a JSON object — no markdown fences, no explanation. "
+            "Use EXACTLY these top-level keys: personal, education, work_experience, projects, skills.\n"
+            "Schema:\n"
+            '{"personal":{"name":"","email":"","phone":"","location":"","linkedin":"","github":"","website":"","summary":""},'
+            '"education":[{"institution":"","degree":"","field":"","start_date":"","end_date":"","gpa":"","description":""}],'
+            '"work_experience":[{"company":"","title":"","start_date":"","end_date":"","location":"","bullets":["..."]}],'
+            '"projects":[{"name":"","description":"","technologies":["..."],"url":"","bullets":["..."]}],'
+            '"skills":{"languages":["..."],"frameworks":["..."],"tools":["..."],"other":["..."]}}'
+        ),
         messages=[
             {
                 "role": "user",
                 "content": (
-                    "Extract all resume information from the following resume text. "
-                    "Be thorough — capture every bullet point, date, and detail exactly as written. "
-                    "Do not infer or add information not present in the text. "
-                    "If a field is not present, use an empty string or empty array.\n\n"
-                    f"Resume text:\n{markdown_text}"
+                    "Extract all information from this resume using the exact schema field names. "
+                    "work_experience[].bullets = list of achievement strings. "
+                    "Empty fields = empty string or []. Output JSON only.\n\n"
+                    f"Resume:\n{markdown_text}"
                 ),
-            }
+            },
         ],
-        output_config={
-            "format": {
-                "type": "json_schema",
-                "schema": RESUME_SCHEMA,
-            }
-        },
     )
-    return json.loads(response.content[0].text)
+    raw = response.content[0].text.strip()
+    # Strip markdown code fences if present
+    if "```" in raw:
+        raw = raw.split("```")[1]
+        if raw.startswith("json"):
+            raw = raw[4:]
+        raw = raw.strip()
+    # Find the JSON object boundaries
+    start = raw.find("{")
+    end = raw.rfind("}") + 1
+    if start != -1 and end > start:
+        raw = raw[start:end]
+    return json.loads(raw)
 
 
 async def parse_paper_with_claude(markdown_text: str) -> dict:
@@ -215,24 +231,33 @@ async def parse_paper_with_claude(markdown_text: str) -> dict:
     client = get_client()
     response = client.messages.create(
         model="claude-haiku-4-5",
-        max_tokens=2048,  # paper metadata output is smaller than full resume
+        max_tokens=2048,
+        system=(
+            "You are an academic paper metadata extractor. Output ONLY a JSON object — "
+            "no markdown fences, no explanation. Use EXACTLY these keys:\n"
+            '{"title":"","authors":[],"abstract":"","venue":"","year":"","doi":"",'
+            '"keywords":[],"key_contributions":["..."],"methodology_summary":"","results_summary":""}'
+        ),
         messages=[
             {
                 "role": "user",
                 "content": (
-                    "Extract the academic paper metadata from the following text. "
-                    "Focus on: title, authors, abstract, publication venue (journal/conference), "
-                    "year, DOI, keywords, and key contributions (3-5 bullet points summarizing "
-                    "what is novel about this paper).\n\n"
+                    "Extract metadata from this academic paper using the exact schema field names. "
+                    "key_contributions: 3-5 strings summarizing novel contributions. "
+                    "Empty fields = empty string or []. Output JSON only.\n\n"
                     f"Paper text:\n{markdown_text}"
                 ),
-            }
+            },
         ],
-        output_config={
-            "format": {
-                "type": "json_schema",
-                "schema": PAPER_SCHEMA,
-            }
-        },
     )
-    return json.loads(response.content[0].text)
+    raw = response.content[0].text.strip()
+    if "```" in raw:
+        raw = raw.split("```")[1]
+        if raw.startswith("json"):
+            raw = raw[4:]
+        raw = raw.strip()
+    start = raw.find("{")
+    end = raw.rfind("}") + 1
+    if start != -1 and end > start:
+        raw = raw[start:end]
+    return json.loads(raw)

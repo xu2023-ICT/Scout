@@ -83,16 +83,17 @@ const hasPaper = ref(false)
 function handleProgress(event: UploadProgressEvent) {
   isParsing.value = true
   latestProgressEvent.value = event
+  if (event.step === 'done' && event.resume_id) {
+    handleComplete(event.resume_id)
+  }
 }
 
 async function handleComplete(resumeId: number) {
+  if (isDone.value) return  // prevent double-trigger
   isDone.value = true
   isParsing.value = false
   await resumeStore.loadParsed(resumeId)
-  // Brief pause so user sees "complete" state before redirect
-  setTimeout(() => {
-    router.push(`/review/${resumeId}`)
-  }, 800)
+  router.push(`/review/${resumeId}`)
 }
 
 function handleError(message: string) {

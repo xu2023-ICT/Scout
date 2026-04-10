@@ -17,54 +17,7 @@ export async function uploadWithProgress(
   formData: FormData,
   onProgress: ProgressCallback,
 ): Promise<number> {
-  // Try SSE streaming first
-  try {
-    return await uploadWithSSE(formData, onProgress)
-  } catch {
-    // Fallback: regular POST with simulated progress ticks
-    return await uploadWithSimulatedProgress(formData, onProgress)
-  }
-}
-
-async function uploadWithSSE(formData: FormData, onProgress: ProgressCallback): Promise<number> {
-  const response = await fetch(`${API_BASE}/upload/stream`, {
-    method: 'POST',
-    body: formData,
-  })
-
-  if (!response.ok || !response.body) {
-    throw new Error('SSE endpoint not available')
-  }
-
-  const reader = response.body.getReader()
-  const decoder = new TextDecoder()
-  let resumeId: number | null = null
-  let buffer = ''
-
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
-    buffer += decoder.decode(value, { stream: true })
-    const lines = buffer.split('\n\n')
-    buffer = lines.pop() ?? ''
-
-    for (const chunk of lines) {
-      const dataLine = chunk.split('\n').find(l => l.startsWith('data:'))
-      if (!dataLine) continue
-      try {
-        const event: UploadProgressEvent = JSON.parse(dataLine.slice(5).trim())
-        onProgress(event)
-        if (event.step === 'done' && event.resume_id) {
-          resumeId = event.resume_id
-        }
-      } catch {
-        // malformed SSE chunk — skip
-      }
-    }
-  }
-
-  if (!resumeId) throw new Error('SSE stream ended without resume_id')
-  return resumeId
+  return await uploadWithSimulatedProgress(formData, onProgress)
 }
 
 async function uploadWithSimulatedProgress(
