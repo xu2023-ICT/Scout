@@ -10,16 +10,17 @@
 - [ ] **RESUME-01**: 用户可上传 PDF 或 Word 格式的简历
 - [ ] **RESUME-02**: AI 自动解析简历结构（工作经历、技能、教育背景）并以可读形式展示
 - [ ] **RESUME-03**: 用户可查看并编辑 AI 解析的简历结构，确认无误后再处理
-- [ ] **RESUME-04**: 用户可上传补充材料：论文 PDF、GitHub 仓库链接
+- [ ] **RESUME-04**: 用户可上传补充材料：论文 PDF、GitHub 仓库链接（与简历一起在开始时上传）
 - [ ] **RESUME-05**: 系统自动从上传论文中提取关键贡献、发表期刊等元数据
 - [ ] **RESUME-06**: 用户可将生成的定制简历导出为 PDF 或 Word
+- [ ] **RESUME-07**: 生成的简历以 LapisCV 格式输出（Markdown + YAML），基于 LapisCV 模板渲染
 
 ### Job Scraping (SCRAPE)
 
-- [ ] **SCRAPE-01**: 用户提供一个 Boss直聘 职位链接 → 系统自动爬取 JD（含字体加密解码）
-- [ ] **SCRAPE-02**: 系统根据用户画像自动搜索 Boss直聘 匹配岗位（无需用户手动查找）
+- [ ] **SCRAPE-01**: 系统爬取 Boss直聘 JD 时自动解码 woff 字体加密，确保 JD 文本完整可读
+- [ ] **SCRAPE-02**: 系统根据用户画像自动搜索 Boss直聘 匹配岗位（用户无需手动查找或提供链接）
 - [ ] **SCRAPE-03**: 系统根据用户画像自动搜索 实习僧 匹配岗位
-- [ ] **SCRAPE-04**: 爬取失败时自动降级：展示错误原因，保留手动粘贴 JD 作为 fallback
+- [ ] **SCRAPE-04**: 爬取失败时自动降级：展示具体错误原因，保留手动粘贴 JD 作为 fallback
 - [ ] **SCRAPE-05**: 用户可设置搜索偏好（城市、岗位类型、行业）
 
 ### AI Generation (AI)
@@ -90,34 +91,35 @@
 | RESUME-01 | Phase 1 | Pending |
 | RESUME-02 | Phase 1 | Pending |
 | RESUME-03 | Phase 1 | Pending |
-| RESUME-04 | Phase 4 | Pending |
-| RESUME-05 | Phase 4 | Pending |
-| RESUME-06 | Phase 4 | Pending |
+| RESUME-04 | Phase 1 | Pending |
+| RESUME-05 | Phase 1 | Pending |
+| RESUME-06 | Phase 3 | Pending |
+| RESUME-07 | Phase 3 | Pending |
 | SCRAPE-01 | Phase 1 | Pending |
-| SCRAPE-02 | Phase 2 | Pending |
-| SCRAPE-03 | Phase 2 | Pending |
+| SCRAPE-02 | Phase 1 | Pending |
+| SCRAPE-03 | Phase 1 | Pending |
 | SCRAPE-04 | Phase 1 | Pending |
-| SCRAPE-05 | Phase 2 | Pending |
+| SCRAPE-05 | Phase 1 | Pending |
 | AI-01 | Phase 1 | Pending |
 | AI-02 | Phase 1 | Pending |
-| AI-03 | Phase 4 | Pending |
-| AI-04 | Phase 4 | Pending |
-| AI-05 | Phase 4 | Pending |
-| AI-06 | Phase 4 | Pending |
-| RESEARCH-01 | Phase 3 | Pending |
-| RESEARCH-02 | Phase 3 | Pending |
-| RESEARCH-03 | Phase 3 | Pending |
-| RESEARCH-04 | Phase 3 | Pending |
-| RESEARCH-05 | Phase 3 | Pending |
-| JOBS-01 | Phase 2 | Pending |
-| JOBS-02 | Phase 5 | Pending |
-| JOBS-03 | Phase 5 | Pending |
-| JOBS-04 | Phase 5 | Pending |
-| JOBS-05 | Phase 5 | Pending |
+| AI-03 | Phase 3 | Pending |
+| AI-04 | Phase 3 | Pending |
+| AI-05 | Phase 3 | Pending |
+| AI-06 | Phase 3 | Pending |
+| RESEARCH-01 | Phase 2 | Pending |
+| RESEARCH-02 | Phase 2 | Pending |
+| RESEARCH-03 | Phase 2 | Pending |
+| RESEARCH-04 | Phase 2 | Pending |
+| RESEARCH-05 | Phase 2 | Pending |
+| JOBS-01 | Phase 1 | Pending |
+| JOBS-02 | Phase 4 | Pending |
+| JOBS-03 | Phase 4 | Pending |
+| JOBS-04 | Phase 4 | Pending |
+| JOBS-05 | Phase 4 | Pending |
 
 **Coverage:**
-- v1 requirements: 27 total
-- Mapped to phases: 27
+- v1 requirements: 28 total
+- Mapped to phases: 28
 - Unmapped: 0 ✓
 
 ---
