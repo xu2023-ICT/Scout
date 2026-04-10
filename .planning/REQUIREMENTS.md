@@ -85,42 +85,41 @@
 
 ## Traceability
 
-*(由 Roadmapper Agent 在生成路线图时填充)*
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| RESUME-01 | — | Pending |
-| RESUME-02 | — | Pending |
-| RESUME-03 | — | Pending |
-| RESUME-04 | — | Pending |
-| RESUME-05 | — | Pending |
-| RESUME-06 | — | Pending |
-| SCRAPE-01 | — | Pending |
-| SCRAPE-02 | — | Pending |
-| SCRAPE-03 | — | Pending |
-| SCRAPE-04 | — | Pending |
-| SCRAPE-05 | — | Pending |
-| AI-01 | — | Pending |
-| AI-02 | — | Pending |
-| AI-03 | — | Pending |
-| AI-04 | — | Pending |
-| AI-05 | — | Pending |
-| AI-06 | — | Pending |
-| RESEARCH-01 | — | Pending |
-| RESEARCH-02 | — | Pending |
-| RESEARCH-03 | — | Pending |
-| RESEARCH-04 | — | Pending |
-| RESEARCH-05 | — | Pending |
-| JOBS-01 | — | Pending |
-| JOBS-02 | — | Pending |
-| JOBS-03 | — | Pending |
-| JOBS-04 | — | Pending |
-| JOBS-05 | — | Pending |
+| RESUME-01 | Phase 1 | Pending |
+| RESUME-02 | Phase 1 | Pending |
+| RESUME-03 | Phase 1 | Pending |
+| RESUME-04 | Phase 4 | Pending |
+| RESUME-05 | Phase 4 | Pending |
+| RESUME-06 | Phase 4 | Pending |
+| SCRAPE-01 | Phase 1 | Pending |
+| SCRAPE-02 | Phase 2 | Pending |
+| SCRAPE-03 | Phase 2 | Pending |
+| SCRAPE-04 | Phase 1 | Pending |
+| SCRAPE-05 | Phase 2 | Pending |
+| AI-01 | Phase 1 | Pending |
+| AI-02 | Phase 1 | Pending |
+| AI-03 | Phase 4 | Pending |
+| AI-04 | Phase 4 | Pending |
+| AI-05 | Phase 4 | Pending |
+| AI-06 | Phase 4 | Pending |
+| RESEARCH-01 | Phase 3 | Pending |
+| RESEARCH-02 | Phase 3 | Pending |
+| RESEARCH-03 | Phase 3 | Pending |
+| RESEARCH-04 | Phase 3 | Pending |
+| RESEARCH-05 | Phase 3 | Pending |
+| JOBS-01 | Phase 2 | Pending |
+| JOBS-02 | Phase 5 | Pending |
+| JOBS-03 | Phase 5 | Pending |
+| JOBS-04 | Phase 5 | Pending |
+| JOBS-05 | Phase 5 | Pending |
+
 **Coverage:**
 - v1 requirements: 27 total
-- Mapped to phases: 0 (pending roadmap)
-- Unmapped: 27 ⚠️
+- Mapped to phases: 27
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-04-10*
-*Last updated: 2026-04-10 after initial definition*
+*Last updated: 2026-04-10 after roadmap phase mapping*
