@@ -14,7 +14,7 @@
       <!-- Upload zone — D-01, D-02, D-03 -->
       <Card class="p-6 mb-6">
         <UploadZone
-          v-if="!isParsing && !isDone"
+          v-show="!isParsing && !isDone"
           @progress="handleProgress"
           @complete="handleComplete"
           @error="handleError"
