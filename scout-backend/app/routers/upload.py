@@ -31,30 +31,30 @@ async def upload_resume(
     except ValueError as e:
         raise HTTPException(status_code=422, detail=str(e))
 
-    # Save resume row (parsed_data is {} until Plan 03 Claude parsing)
+    # Save resume row with Claude-parsed structured data (Plan 03)
     resume_row = Resume(
         filename=resume.filename or "resume",
         raw_text=result["resume_text"],
-        parsed_data={},
+        parsed_data=result["parsed_resume"],  # Claude-parsed RESUME_SCHEMA shape
         github_url=result["github_url"],
         confirmed=False,
     )
     db.add(resume_row)
     await db.flush()  # get resume_row.id before committing
 
-    # Save paper row if paper was uploaded
-    if result["paper_text"] and paper:
+    # Save paper row if paper was uploaded and Claude-parsed
+    if result["paper_text"] and paper and result["parsed_paper"]:
         paper_row = Paper(
             resume_id=resume_row.id,
             filename=paper.filename or "paper.pdf",
-            parsed_data={"raw_text": result["paper_text"]},  # Claude fills this in Plan 03
+            parsed_data=result["parsed_paper"],  # Claude-parsed PAPER_SCHEMA shape
         )
         db.add(paper_row)
 
     await db.commit()
     await db.refresh(resume_row)
 
-    return {"resume_id": resume_row.id, "status": "extracted"}
+    return {"resume_id": resume_row.id, "status": "parsed"}
 
 
 @router.get("/resume/{resume_id}", response_model=dict)

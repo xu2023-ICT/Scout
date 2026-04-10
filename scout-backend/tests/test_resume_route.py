@@ -1,5 +1,6 @@
 import fitz
 import pytest
+from unittest.mock import AsyncMock, patch
 
 
 def make_pdf_bytes(text="Frank Developer") -> bytes:
@@ -28,14 +29,36 @@ SAMPLE_PARSED = {
     "skills": {"languages": [], "frameworks": [], "tools": [], "other": []},
 }
 
+MOCK_PARSE_RESULT = {
+    "resume_text": "Frank Developer Software Engineer",
+    "paper_text": None,
+    "parsed_resume": SAMPLE_PARSED,
+    "parsed_paper": None,
+    "github_url": None,
+}
+
+MOCK_PARSE_RESULT_GRACE = {
+    "resume_text": "Grace Researcher Software Engineer",
+    "paper_text": None,
+    "parsed_resume": {
+        "personal": {"name": "Grace Researcher", "email": "", "phone": "",
+                     "location": "", "linkedin": "", "github": "", "website": "", "summary": ""},
+        "education": [], "work_experience": [], "projects": [],
+        "skills": {"languages": [], "frameworks": [], "tools": [], "other": []}
+    },
+    "parsed_paper": None,
+    "github_url": None,
+}
+
 
 class TestResumeEdit:
     async def test_put_updates_parsed_data(self, client):
         pdf_bytes = make_pdf_bytes("Frank Developer")
-        upload_resp = await client.post(
-            "/api/upload",
-            files={"resume": ("resume.pdf", pdf_bytes, "application/pdf")},
-        )
+        with patch("app.routers.upload.parse_all", new_callable=AsyncMock, return_value=MOCK_PARSE_RESULT):
+            upload_resp = await client.post(
+                "/api/upload",
+                files={"resume": ("resume.pdf", pdf_bytes, "application/pdf")},
+            )
         resume_id = upload_resp.json()["resume_id"]
 
         put_resp = await client.put(
@@ -47,10 +70,11 @@ class TestResumeEdit:
 
     async def test_confirm_sets_confirmed_true(self, client):
         pdf_bytes = make_pdf_bytes("Grace Researcher")
-        upload_resp = await client.post(
-            "/api/upload",
-            files={"resume": ("resume.pdf", pdf_bytes, "application/pdf")},
-        )
+        with patch("app.routers.upload.parse_all", new_callable=AsyncMock, return_value=MOCK_PARSE_RESULT_GRACE):
+            upload_resp = await client.post(
+                "/api/upload",
+                files={"resume": ("resume.pdf", pdf_bytes, "application/pdf")},
+            )
         resume_id = upload_resp.json()["resume_id"]
 
         confirm_resp = await client.post(f"/api/resume/{resume_id}/confirm")
