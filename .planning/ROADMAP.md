@@ -9,7 +9,7 @@
 ## Phases
 
 - [ ] **Phase 1: Upload & Parse** - 上传简历+材料 → AI解析结构化数据 → 表单确认
-- [ ] **Phase 2: Job Search** - 询问偏好+分析简历 → 并行搜索所有平台（Boss+实习僧+官网）→ 展示Dashboard
+- [ ] **Phase 2: Job Search** - 询问偏好 → 并行搜索互联网大厂官网（Tavily API，v1）→ 展示Dashboard（Boss直聘/实习僧 → v2）
 - [ ] **Phase 3: Research → Generate** - 先研究（公司+牛客+小红书+跨JD） → 再生成定制简历+面试稿+质量控制
 - [ ] **Phase 4: Job Management** - 筛选、匹配分、看板、SSE实时进度
 
@@ -34,14 +34,14 @@ Plans:
 **UI hint**: yes
 
 ### Phase 2: Job Search
-**Goal**: 系统先询问用户偏好并结合简历自动推断搜索策略，然后并行搜索 Boss直聘、实习僧、公司官网，含 woff 字体解密，展示岗位 Dashboard
+**Goal**: 系统询问用户偏好，通过 Tavily API 并行搜索互联网大厂官方招聘页（v1；Boss直聘/实习僧 → v2），实时展示搜索进度，结果展示在 Dashboard
 **Depends on**: Phase 1
-**Requirements**: SCRAPE-01, SCRAPE-02, SCRAPE-03, SCRAPE-04, JOBS-01
+**Requirements**: SCRAPE-02, SCRAPE-03, SCRAPE-04, JOBS-01（SCRAPE-01 已移至 v2）
 **Success Criteria** (what must be TRUE):
-  1. 系统询问用户偏好（城市/类型/行业），同时分析简历关键词，综合生成搜索策略
-  2. Boss直聘、实习僧、公司官网三平台并行搜索，woff 字体正确解码，JD 文本完整可读
-  3. 爬取失败时展示具体错误，提供手动粘贴 JD 的降级方案
-  4. 用户在 Dashboard 看到所有已发现岗位列表
+  1. 用户在 /search 页填写偏好（城市/岗位类型/行业/关键词）并选择目标公司（内置大厂列表，可添加）
+  2. 点击「开始搜索」后，页面实时展示各公司搜索状态（搜索中/找到N个/失败），全部完成后自动跳转 Dashboard
+  3. Tavily 搜索某公司失败时，在该位置显示「粘贴 JD」降级入口
+  4. 用户在 /dashboard 看到所有已发现岗位（公司名+职位+城市+薪资+JD摘要+来源标签）
 **Plans**: TBD
 **UI hint**: yes
 
@@ -81,13 +81,13 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Upload & Parse | 1/5 | In Progress | - |
-| 2. Job Search | 0/? | Not started | - |
+| 1. Upload & Parse | 5/5 | ✅ Complete | 2026-04-10 |
+| 2. Job Search | 0/? | Planning | - |
 | 3. Research → Generate | 0/? | Not started | - |
 | 4. Job Management | 0/? | Not started | - |
 | 5. Scale (if traction) | — | On hold | - |
 
 ---
 *Roadmap created: 2026-04-10*
-*Last updated: 2026-04-10 after requirement revisions (merged Phase 1+2, added LapisCV, moved materials to Phase 1)*
-*Phase 1 planned: 2026-04-10 — 5 plans in 4 waves*
+*Last updated: 2026-04-10 — Phase 2 scope revised: v1 only searches company official career pages via Tavily (Boss直聘/实习僧 → v2)*
+*Phase 1 complete: 2026-04-10 — 5 plans, E2E verified*
