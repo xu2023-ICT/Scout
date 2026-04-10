@@ -17,11 +17,10 @@
 
 ### Job Scraping (SCRAPE)
 
-- [ ] **SCRAPE-01**: 系统爬取 Boss直聘 JD 时自动解码 woff 字体加密，确保 JD 文本完整可读
-- [ ] **SCRAPE-02**: 系统根据用户画像自动搜索 Boss直聘 匹配岗位（用户无需手动查找或提供链接）
-- [ ] **SCRAPE-03**: 系统根据用户画像自动搜索 实习僧 匹配岗位
+- [ ] **SCRAPE-01**: 系统爬取平台 JD 时自动解码 woff 字体加密（Boss直聘专有反爬机制），确保文本完整可读
+- [ ] **SCRAPE-02**: 系统**同时**搜索所有目标平台（Boss直聘、实习僧、公司官网招聘页），不分先后，并行执行
+- [ ] **SCRAPE-03**: 搜索前询问用户偏好（城市、岗位类型、行业），同时分析简历自动推断用户真实意向，两者结合制定搜索策略（不完全依赖用户填写）
 - [ ] **SCRAPE-04**: 爬取失败时自动降级：展示具体错误原因，保留手动粘贴 JD 作为 fallback
-- [ ] **SCRAPE-05**: 用户可设置搜索偏好（城市、岗位类型、行业）
 
 ### AI Generation (AI)
 
@@ -94,32 +93,31 @@
 | RESUME-04 | Phase 1 | Pending |
 | RESUME-05 | Phase 1 | Pending |
 | RESUME-06 | Phase 3 | Pending |
-| RESUME-07 | Phase 3 | Pending |
-| SCRAPE-01 | Phase 1 | Pending |
-| SCRAPE-02 | Phase 1 | Pending |
-| SCRAPE-03 | Phase 1 | Pending |
-| SCRAPE-04 | Phase 1 | Pending |
-| SCRAPE-05 | Phase 1 | Pending |
-| AI-01 | Phase 1 | Pending |
-| AI-02 | Phase 1 | Pending |
+| RESUME-07 | Phase 1 | Pending |
+| SCRAPE-01 | Phase 2 | Pending |
+| SCRAPE-02 | Phase 2 | Pending |
+| SCRAPE-03 | Phase 2 | Pending |
+| SCRAPE-04 | Phase 2 | Pending |
+| AI-01 | Phase 3 | Pending |
+| AI-02 | Phase 3 | Pending |
 | AI-03 | Phase 3 | Pending |
 | AI-04 | Phase 3 | Pending |
 | AI-05 | Phase 3 | Pending |
 | AI-06 | Phase 3 | Pending |
-| RESEARCH-01 | Phase 2 | Pending |
-| RESEARCH-02 | Phase 2 | Pending |
-| RESEARCH-03 | Phase 2 | Pending |
-| RESEARCH-04 | Phase 2 | Pending |
-| RESEARCH-05 | Phase 2 | Pending |
-| JOBS-01 | Phase 1 | Pending |
+| RESEARCH-01 | Phase 3 | Pending |
+| RESEARCH-02 | Phase 3 | Pending |
+| RESEARCH-03 | Phase 3 | Pending |
+| RESEARCH-04 | Phase 3 | Pending |
+| RESEARCH-05 | Phase 3 | Pending |
+| JOBS-01 | Phase 2 | Pending |
 | JOBS-02 | Phase 4 | Pending |
 | JOBS-03 | Phase 4 | Pending |
 | JOBS-04 | Phase 4 | Pending |
 | JOBS-05 | Phase 4 | Pending |
 
 **Coverage:**
-- v1 requirements: 28 total
-- Mapped to phases: 28
+- v1 requirements: 27 total
+- Mapped to phases: 27
 - Unmapped: 0 ✓
 
 ---
