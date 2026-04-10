@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 scout.db
 test_scout.db
+test_debug.db
+*.db
 node_modules/
 .DS_Store
 .vscode/
