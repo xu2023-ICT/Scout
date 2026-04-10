@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+scout.db
+test_scout.db
+node_modules/
+.DS_Store
